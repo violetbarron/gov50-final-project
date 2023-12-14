@@ -91,6 +91,15 @@ educational_attainment_percentages |> knitr::kable()
 
 From these first two visualizations, it is clear that the first part of my hypothesis — that Chinese Americans and Hmong Americans will have quite disparate levels of educational attainment — is likely true. The data point which exemplifies this best is the percentage of these respective populations which hold a bachelor's degree. Whereas nearly 60% of the Chinese American population holds a bachelor's degree or higher (value from percentage which hold a bachelor's degree + percentage which hold a graduate or professional degree), half of that proportion, or less than 30%, of the Hmong American population, holds a bachelor's degree or higher.
 
+```{r}
+regression_data = data.frame(asian = c(0.592, 0.273),
+                             general = 0.357)
+model = lm(general ~ asian, regression_data)
+
+model
+```
+
+
 ## Conclusion
 
-The percentage of Americans who hold a bachelor's degree or higher is 35.7% (2020 U.S. Census). This confirms the second part of my hypothesis as the number falls in between the percentage of Chinese Americans who hold a bachelor's degree or higher (59.2%) and the percentage of Hmong Americans who hold the same (27.3%). When I ran my regression of the aggregate AANHPI experience (Chinese American + Hmong American educational attainment level) against the national average, the output was a small, positive coefficient. This coefficient  would indicate support for my hypothesis, as it proves that the aggregate AANHPI level of educational attainment is somewhere in between that of the average citizen, effectively proving that AANHPI population is not a monolith (i.e. fares much better or much worse than the general U.S. population), at least when it comes to educational attainment.
+The percentage of Americans who hold a bachelor's degree or higher is 35.7% (2020 U.S. Census). The "aggregate" percentage of the AANHPI population, when measured between Chinese Americans and Hmong Americans, who hold a bachelor's degree or higher is 43.25%. Running a regression on these percentages produces a coefficient of 0.357, a positive, relatively insignificant coefficient, which I hypothesized we would find. This coefficient proves that the aggregate AANHPI level of educational attainment is somewhere in between that of the average citizen, effectively proving that AANHPI population is not a monolith (i.e. fares much better or much worse than the general U.S. population), at least when it comes to educational attainment.
