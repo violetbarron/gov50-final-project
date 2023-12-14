@@ -19,7 +19,7 @@ How do different Asian American and Native Hawaiian/Pacific Islander (AANHPI) et
 
 ## Milestone 3: Example use of disagreggated census data
 
-```{r}
+```{r include = FALSE}
 library(tidyverse)
 acs2022 <- read_csv("data/acs2022.csv")
 
@@ -68,38 +68,50 @@ educational_attainment$Asian_Indian <- c(207475, 220050, 264060, 1002799, 145233
 educational_attainment$Chinese <- c(496717, 453086, 419524, 919598, 1067271, 2859481, 1986869)
 
 educational_attainment$Hmong <- c(30487, 46735, 55498, 37424, 12414, 152072, 49838)
+```
 
+```{r}
 Chinese_plot <- educational_attainment |>
   ggplot(aes(x = Chinese,
              y = educational_attainment)) +
+  labs(x = "Chinese population",
+       y = "Level of educational attainment",
+       title = "Educational Attainment of Chinese Americans") +
   geom_col()
 
-Chinese_plot
+print(Chinese_plot)
 
 Hmong_plot <- educational_attainment |>
   ggplot(aes(x = Hmong,
              y = educational_attainment)) +
+  labs(x = "Hmong population",
+       y = "Level of educational attainment",
+       title = "Educational Attainment of Hmong Americans") +
   geom_col()
 
-Hmong_plot
+print(Hmong_plot)
 ```
+
 
 ```{r}
 educational_attainment_percentages <- acs2022select[c(97:103, 106), ] |> rename("educational_attainment" = "Label (Grouping)")
 educational_attainment_percentages |> knitr::kable()
 ```
 
-From these first two visualizations, it is clear that the first part of my hypothesis — that Chinese Americans and Hmong Americans will have quite disparate levels of educational attainment — is likely true. The data point which exemplifies this best is the percentage of these respective populations which hold a bachelor's degree. Whereas nearly 60% of the Chinese American population holds a bachelor's degree or higher (value from percentage which hold a bachelor's degree + percentage which hold a graduate or professional degree), half of that proportion, or less than 30%, of the Hmong American population, holds a bachelor's degree or higher.
+From these first two visualizations, it is clear that the first part of my hypothesis — that Chinese Americans and Hmong Americans will have quite disparate levels of educational attainment — is likely true. The data point which exemplifies this best is the percentage of these respective populations which hold a bachelor's degree or higher. Whereas 59.2% of the Chinese American population holds a bachelor's degree or higher, about half of that percentage, or 27.3%, of the Hmong American population holds a bachelor's degree or higher. This large disparity indicates that the average/aggregate of the two will likely fall somewhere near the percentage of the general American population that holds a bachelor's degree or higher (35.7%, according to the 2020 U.S. Census).
+
+## Regression
 
 ```{r}
 regression_data = data.frame(asian = c(0.592, 0.273),
                              general = 0.357)
-model = lm(general ~ asian, regression_data)
+model = lm(asian ~ general, regression_data)
 
 model
 ```
 
-
 ## Conclusion
 
-The percentage of Americans who hold a bachelor's degree or higher is 35.7% (2020 U.S. Census). The "aggregate" percentage of the AANHPI population, when measured between Chinese Americans and Hmong Americans, who hold a bachelor's degree or higher is 43.25%. Running a regression on these percentages produces a coefficient of 0.357, a positive, relatively insignificant coefficient, which I hypothesized we would find. This coefficient proves that the aggregate AANHPI level of educational attainment is somewhere in between that of the average citizen, effectively proving that AANHPI population is not a monolith (i.e. fares much better or much worse than the general U.S. population), at least when it comes to educational attainment.
+In this regression, the dependent variable is the "aggregate" percentage of the AANHPI population that holds a bachelor's degree or higher (as determined by taking the average of the respective percentages of the Chinese American and Hmong American population that hold a bachelor's degree or higher). The independent variable is the percentage of the total U.S. population that holds a bachelor's degree or higher. The resulting coefficient is 0.4325, which is statistically significant but cannot be interpreted causally as this was a cross-sectional experiment designed to visualize the disparities between various AANHPI ethnicities' levels of educational attainment and then compare this against that of the total U.S. population, not to attribute any sort of causation between these various percentages.
+
+The coefficient of 0.4325 is a positive, relatively insignificant coefficient,  which I hypothesized the results would return. This coefficient proves that the aggregate AANHPI level of educational attainment is somewhere in between that of the average citizen, effectively proving that AANHPI population is not a monolith (i.e. fares much better or much worse than the general U.S. population), at least when it comes to educational attainment.
