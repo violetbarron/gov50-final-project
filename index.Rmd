@@ -11,24 +11,86 @@ output:
 
 ## Project thoughts
 
-I am interested in exploring data related to the vast disparities between various Asian American and Native Hawaiian/Pacific Islander (AANHPI) ethnic subgroups in the United States. I plan to use publicly available U.S. census data (found at data.census.gov) to explore a multitude of variables, such as educational attainment, median household income, poverty rates, English proficiency, citizenship and immigration status, and so on. Through this project, I hope to disprove the reductionist view of the AANHPI community as a wealthy and well-educated monolith.
+I am interested in exploring data related to the vast disparities between various Asian American and Native Hawaiian/Pacific Islander (AANHPI) ethnic subgroups in the United States. I plan to use publicly available U.S. census data (found at data.census.gov) to explore the varying levels of educational attainment found across these AANHPI ethnic groups and then measure these observations against the national averages for educational attainment. Through this project, I hope to disprove the reductionist view of the AANHPI community as an exclusively  well-educated monolith.
 
 ## Data source
 
-How do different Asian American and Native Hawaiian/Pacific Islander (AANHPI) ethnic groups fare in America when their experiences are measured against national averages? In this study, I plan to explore the discrepancy in experiences - using a variety of metrics - across members of different AANHPI ethnic groups and compare this discrepancy with the experience of the average American citizen. I hypothesize that because the label "AANHPI" encompasses such a diverse group of ethnicities, the aggregate AANHPI experience will not be much different when compared with the national average when observing most metrics. However, when observing certain metrics, such as English proficiency, I hypothesize that AANHPI groups will fare decidedly worse than the average American. My sample is comprised of U.S. census data from 2010-2020. My unit of analysis is a specific AANHPI ethnic group (e.g. Chinese, Filipino, Burmese, etc.). The explanatory variable of interest is whether each of these ethnic groups fare better or worse than the national average across a variety of metrics (e.g. educational attainment, median household income, poverty and employment rate, English proficiency, etc.). The variable is coded =1 for better than the national average and =0 for worse than the national average. The variable is measured from publicly available U.S. data (found at data.census.gov). If I observe that across ethnic groups, AANHPI fare about equal to the average American citizen, this would provide support for my hypothesis. If, on the other hand, I observe that across ethnic groups, AANHPI fare either overwhelmingly better or worse than the average American citizen, this would provide evidence against my hypothesis. When I run my regression of the AANHPI experience against the national average, a positive, relatively insignificant coefficient would indicate support for my hypothesis.
+How do different Asian American and Native Hawaiian/Pacific Islander (AANHPI) ethnic groups fare in America when their experiences are measured against national averages? In this study, I plan to explore the discrepancy in experiences — measured through levels of educational attainment — between various AANHPI ethnic groups and compare this discrepancy with the experience of the average American citizen. I hypothesize that there will not be a consensus as to whether or not AANHPI on the whole are more formally educated than the average American citizen, and rather certain AANHPI ethnicities, such as Chinese Americans, will be more formally educated than the average American while other AANHPI ethnicities, such as Hmong Americans, will be less formally educated than the average American citizen. My sample is comprised of U.S. census data from 2010-2020. My unit of analysis is a specific AANHPI ethnic group and for this project, I will only consider Chinese and Hmong Americans as while these two ethnicities are often lumped into one, I hypothesize that these two groups will have perhaps the most dissonant experiences when it comes to educational attainment. The explanatory variable of interest is whether each of these ethnic groups fare better or worse than the national average for educational attainment level. The variable is measured from publicly available U.S. data (found at data.census.gov). If I observe that across ethnic groups, the aggregate of the AANHPI population fare about equally to the average American, this would provide support for my hypothesis, as the groups that fare better would "cancel out" those that fare worse, leading to an overall educational attainment level that is about average. If, on the other hand, I observe that across ethnic groups, the aggregate of the AANHPI population fare either overwhelmingly better or worse than the average American citizen, this would provide evidence against my hypothesis. When I run my regression of the aggregate AANHPI experience against the national average, a positive, relatively insignificant coefficient would indicate support for my hypothesis.
 
 ## Milestone 3: Example use of disagreggated census data
 
-```{r, fig.height = 5, fig.width = 15}
+```{r}
 library(tidyverse)
-race2020 <- read_csv("data/race2020.csv")
+acs2022 <- read_csv("data/acs2022.csv")
 
-race2020plot <- race2020 |>
-  ggplot(mapping = aes(x = Race, y = Population)) +
-           geom_col() + scale_y_log10() + labs(title = "2020 Racial Demographics",
-                                               subtitle = "CA Congressional District 12",
-                                               caption = "Source: https://data.census.gov/table/DECENNIALPL2020.P1?q=Congressional+District+12+(118th+Congress),+California&tp=false")
+acs2022select <- acs2022 |> select(-"United States!!Asian Indian alone!!Margin of Error",
+                                   -"United States!!Bangladeshi alone!!Margin of Error",
+                                   -"United States!!Cambodian alone!!Margin of Error",
+                                   -"United States!!Chinese alone!!Margin of Error",
+                                   -"United States!!Chinese, except Taiwanese alone!!Margin of Error",
+                                   -"United States!!Taiwanese alone!!Margin of Error",
+                                   -"United States!!Filipino alone!!Margin of Error",
+                                   -"United States!!Hmong alone!!Margin of Error",
+                                   -"United States!!Indonesian alone!!Margin of Error",
+                                   -"United States!!Japanese alone!!Margin of Error",
+                                   -"United States!!Korean alone!!Margin of Error",
+                                   -"United States!!Laotian alone!!Margin of Error",
+                                   -"United States!!Pakistani alone!!Margin of Error",
+                                   -"United States!!Thai alone!!Margin of Error",
+                                   -"United States!!Vietnamese alone!!Margin of Error",
+                                   -"United States!!Asian Indian alone or in any combination!!Estimate":-"United States!!Nepalese alone or in any combination!!Margin of Error") |>
+  rename("Asian_Indian" = "United States!!Asian Indian alone!!Estimate",
+         "Bangladeshi" = "United States!!Bangladeshi alone!!Estimate",
+         "Cambodian" = "United States!!Cambodian alone!!Estimate",
+         "Chinese" = "United States!!Chinese alone!!Estimate",
+         "Chinese_except_Taiwanese" = "United States!!Chinese, except Taiwanese alone!!Estimate",
+         "Taiwanese" = "United States!!Taiwanese alone!!Estimate",
+         "Filipino" = "United States!!Filipino alone!!Estimate",
+         "Hmong" = "United States!!Hmong alone!!Estimate",
+         "Indonesian" = "United States!!Indonesian alone!!Estimate",
+         "Japanese" = "United States!!Japanese alone!!Estimate",
+         "Korean" = "United States!!Korean alone!!Estimate",
+         "Laotian" = "United States!!Laotian alone!!Estimate",
+         "Pakistani" = "United States!!Pakistani alone!!Estimate",
+         "Thai" = "United States!!Thai alone!!Estimate",
+         "Vietnamese" = "United States!!Vietnamese alone!!Estimate")
 
-print(race2020plot)
+educational_attainment <- acs2022select[c(97:103, 106), ] |> rename("educational_attainment" = "Label (Grouping)")
+
+educational_attainment
+
+educational_attainment <- acs2022select[c(98:103, 106), ] |> rename("educational_attainment" = "Label (Grouping)")
+
+educational_attainment
+
+educational_attainment$Asian_Indian <- c(207475, 220050, 264060, 1002799, 1452330, 2936097, 2451986)
+
+educational_attainment$Chinese <- c(496717, 453086, 419524, 919598, 1067271, 2859481, 1986869)
+
+educational_attainment$Hmong <- c(30487, 46735, 55498, 37424, 12414, 152072, 49838)
+
+Asian_Indian_plot <- educational_attainment |>
+  ggplot(aes(x = Asian_Indian,
+             y = educational_attainment)) +
+  geom_col()
+
+Asian_Indian_plot
+print(Asian_Indian_plot)
+
+Chinese_plot <- educational_attainment |>
+  ggplot(aes(x = Chinese,
+             y = educational_attainment)) +
+  geom_col()
+
+Chinese_plot
+print(Chinese_plot)
+
+Hmong_plot <- educational_attainment |>
+  ggplot(aes(x = Hmong,
+             y = educational_attainment)) +
+  geom_col()
+
+Hmong_plot
+print(Hmong_plot)
 ```
 
