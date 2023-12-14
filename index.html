@@ -1624,38 +1624,39 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>educational_attainment</span> <span class='op'>|&gt;</span> <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>educational_attainment_percentages</span> <span class='op'>&lt;-</span> <span class='va'>acs2022select</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>97</span><span class='op'>:</span><span class='fl'>103</span>, <span class='fl'>106</span><span class='op'>)</span>, <span class='op'>]</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span><span class='st'>"educational_attainment"</span> <span class='op'>=</span> <span class='st'>"Label (Grouping)"</span><span class='op'>)</span></span>
+<span><span class='va'>educational_attainment_percentages</span> <span class='op'>|&gt;</span> <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 <table>
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 6%" />
+<col style="width: 23%" />
+<col style="width: 5%" />
 <col style="width: 5%" />
 <col style="width: 4%" />
-<col style="width: 3%" />
-<col style="width: 12%" />
+<col style="width: 4%" />
+<col style="width: 11%" />
 <col style="width: 4%" />
 <col style="width: 4%" />
 <col style="width: 3%" />
 <col style="width: 5%" />
 <col style="width: 4%" />
-<col style="width: 3%" />
+<col style="width: 4%" />
 <col style="width: 3%" />
 <col style="width: 4%" />
-<col style="width: 2%" />
+<col style="width: 3%" />
 <col style="width: 5%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">educational_attainment</th>
-<th style="text-align: right;">Asian_Indian</th>
+<th style="text-align: left;">Asian_Indian</th>
 <th style="text-align: left;">Bangladeshi</th>
 <th style="text-align: left;">Cambodian</th>
-<th style="text-align: right;">Chinese</th>
+<th style="text-align: left;">Chinese</th>
 <th style="text-align: left;">Chinese_except_Taiwanese</th>
 <th style="text-align: left;">Taiwanese</th>
 <th style="text-align: left;">Filipino</th>
-<th style="text-align: right;">Hmong</th>
+<th style="text-align: left;">Hmong</th>
 <th style="text-align: left;">Indonesian</th>
 <th style="text-align: left;">Japanese</th>
 <th style="text-align: left;">Korean</th>
@@ -1667,15 +1668,33 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;">    Population 25 years and over</td>
+<td style="text-align: left;">3,143,573</td>
+<td style="text-align: left;">167,034</td>
+<td style="text-align: left;">198,053</td>
+<td style="text-align: left;">3,356,199</td>
+<td style="text-align: left;">3,149,453</td>
+<td style="text-align: left;">206,746</td>
+<td style="text-align: left;">2,305,459</td>
+<td style="text-align: left;">182,560</td>
+<td style="text-align: left;">60,901</td>
+<td style="text-align: left;">609,708</td>
+<td style="text-align: left;">1,175,814</td>
+<td style="text-align: left;">136,852</td>
+<td style="text-align: left;">364,367</td>
+<td style="text-align: left;">165,740</td>
+<td style="text-align: left;">1,377,617</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">        Less than high school diploma</td>
-<td style="text-align: right;">207475</td>
+<td style="text-align: left;">6.6%</td>
 <td style="text-align: left;">13.8%</td>
 <td style="text-align: left;">28.2%</td>
-<td style="text-align: right;">496717</td>
+<td style="text-align: left;">14.8%</td>
 <td style="text-align: left;">15.5%</td>
 <td style="text-align: left;">3.5%</td>
 <td style="text-align: left;">5.8%</td>
-<td style="text-align: right;">30487</td>
+<td style="text-align: left;">16.7%</td>
 <td style="text-align: left;">5.7%</td>
 <td style="text-align: left;">3.5%</td>
 <td style="text-align: left;">6.6%</td>
@@ -1684,16 +1703,16 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <td style="text-align: left;">14.8%</td>
 <td style="text-align: left;">23.9%</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">        High school graduate (includes equivalency)</td>
-<td style="text-align: right;">220050</td>
+<td style="text-align: left;">7.0%</td>
 <td style="text-align: left;">20.8%</td>
 <td style="text-align: left;">25.4%</td>
-<td style="text-align: right;">453086</td>
+<td style="text-align: left;">13.5%</td>
 <td style="text-align: left;">14.1%</td>
 <td style="text-align: left;">5.3%</td>
 <td style="text-align: left;">14.9%</td>
-<td style="text-align: right;">46735</td>
+<td style="text-align: left;">25.6%</td>
 <td style="text-align: left;">15.8%</td>
 <td style="text-align: left;">16.3%</td>
 <td style="text-align: left;">15.0%</td>
@@ -1702,16 +1721,16 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <td style="text-align: left;">16.0%</td>
 <td style="text-align: left;">20.3%</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">        Some college or associate’s degree</td>
-<td style="text-align: right;">264060</td>
+<td style="text-align: left;">8.4%</td>
 <td style="text-align: left;">14.0%</td>
 <td style="text-align: left;">22.3%</td>
-<td style="text-align: right;">419524</td>
+<td style="text-align: left;">12.5%</td>
 <td style="text-align: left;">12.7%</td>
 <td style="text-align: left;">10.0%</td>
 <td style="text-align: left;">27.5%</td>
-<td style="text-align: right;">55498</td>
+<td style="text-align: left;">30.4%</td>
 <td style="text-align: left;">22.4%</td>
 <td style="text-align: left;">24.7%</td>
 <td style="text-align: left;">17.8%</td>
@@ -1720,16 +1739,16 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <td style="text-align: left;">20.2%</td>
 <td style="text-align: left;">21.0%</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">        Bachelor’s degree</td>
-<td style="text-align: right;">1002799</td>
+<td style="text-align: left;">31.9%</td>
 <td style="text-align: left;">25.3%</td>
 <td style="text-align: left;">18.2%</td>
-<td style="text-align: right;">919598</td>
+<td style="text-align: left;">27.4%</td>
 <td style="text-align: left;">27.0%</td>
 <td style="text-align: left;">34.0%</td>
 <td style="text-align: left;">40.9%</td>
-<td style="text-align: right;">37424</td>
+<td style="text-align: left;">20.5%</td>
 <td style="text-align: left;">35.1%</td>
 <td style="text-align: left;">35.3%</td>
 <td style="text-align: left;">35.9%</td>
@@ -1738,16 +1757,16 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <td style="text-align: left;">31.5%</td>
 <td style="text-align: left;">23.3%</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">        Graduate or professional degree</td>
-<td style="text-align: right;">1452330</td>
+<td style="text-align: left;">46.2%</td>
 <td style="text-align: left;">26.1%</td>
 <td style="text-align: left;">5.9%</td>
-<td style="text-align: right;">1067271</td>
+<td style="text-align: left;">31.8%</td>
 <td style="text-align: left;">30.8%</td>
 <td style="text-align: left;">47.3%</td>
 <td style="text-align: left;">11.0%</td>
-<td style="text-align: right;">12414</td>
+<td style="text-align: left;">6.8%</td>
 <td style="text-align: left;">21.0%</td>
 <td style="text-align: left;">20.2%</td>
 <td style="text-align: left;">24.8%</td>
@@ -1756,16 +1775,16 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <td style="text-align: left;">17.6%</td>
 <td style="text-align: left;">11.5%</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">        High school graduate or higher</td>
-<td style="text-align: right;">2936097</td>
+<td style="text-align: left;">93.4%</td>
 <td style="text-align: left;">86.2%</td>
 <td style="text-align: left;">71.8%</td>
-<td style="text-align: right;">2859481</td>
+<td style="text-align: left;">85.2%</td>
 <td style="text-align: left;">84.5%</td>
 <td style="text-align: left;">96.5%</td>
 <td style="text-align: left;">94.2%</td>
-<td style="text-align: right;">152072</td>
+<td style="text-align: left;">83.3%</td>
 <td style="text-align: left;">94.3%</td>
 <td style="text-align: left;">96.5%</td>
 <td style="text-align: left;">93.4%</td>
@@ -1774,16 +1793,16 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <td style="text-align: left;">85.2%</td>
 <td style="text-align: left;">76.1%</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">        Bachelor’s degree or higher</td>
-<td style="text-align: right;">2451986</td>
+<td style="text-align: left;">78.0%</td>
 <td style="text-align: left;">51.5%</td>
 <td style="text-align: left;">24.1%</td>
-<td style="text-align: right;">1986869</td>
+<td style="text-align: left;">59.2%</td>
 <td style="text-align: left;">57.8%</td>
 <td style="text-align: left;">81.2%</td>
 <td style="text-align: left;">51.9%</td>
-<td style="text-align: right;">49838</td>
+<td style="text-align: left;">27.3%</td>
 <td style="text-align: left;">56.2%</td>
 <td style="text-align: left;">55.5%</td>
 <td style="text-align: left;">60.7%</td>

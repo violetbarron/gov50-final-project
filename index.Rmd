@@ -85,7 +85,8 @@ Hmong_plot
 ```
 
 ```{r}
-educational_attainment |> knitr::kable()
+educational_attainment_percentages <- acs2022select[c(97:103, 106), ] |> rename("educational_attainment" = "Label (Grouping)")
+educational_attainment_percentages |> knitr::kable()
 ```
 
 From these first two visualizations, it is clear that the first part of my hypothesis — that Chinese Americans and Hmong Americans will have quite disparate levels of educational attainment — is likely true. The data point which exemplifies this best is the percentage of these respective populations which hold a bachelor's degree. Whereas over 80% of the Chinese American population holds a bachelor's degree, less than 30% of the Hmong American population does.
