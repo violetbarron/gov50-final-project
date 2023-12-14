@@ -69,21 +69,12 @@ educational_attainment$Chinese <- c(496717, 453086, 419524, 919598, 1067271, 285
 
 educational_attainment$Hmong <- c(30487, 46735, 55498, 37424, 12414, 152072, 49838)
 
-Asian_Indian_plot <- educational_attainment |>
-  ggplot(aes(x = Asian_Indian,
-             y = educational_attainment)) +
-  geom_col()
-
-Asian_Indian_plot
-print(Asian_Indian_plot)
-
 Chinese_plot <- educational_attainment |>
   ggplot(aes(x = Chinese,
              y = educational_attainment)) +
   geom_col()
 
 Chinese_plot
-print(Chinese_plot)
 
 Hmong_plot <- educational_attainment |>
   ggplot(aes(x = Hmong,
@@ -91,6 +82,5 @@ Hmong_plot <- educational_attainment |>
   geom_col()
 
 Hmong_plot
-print(Hmong_plot)
 ```
 

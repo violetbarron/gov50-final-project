@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["data/acs2022.csv","data/decennial2020.csv","data/race2020.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-1-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["data/acs2022.csv","data/decennial2020.csv","data/race2020.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-1-1.png","index_files/figure-html5/unnamed-chunk-1-2.png","index_files/figure-html5/unnamed-chunk-1-3.png","index_files/figure-html5/unnamed-chunk-1-4.png","index_files/figure-html5/unnamed-chunk-1-5.png","index_files/figure-html5/unnamed-chunk-1-6.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1518,26 +1518,111 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 <div class="d-article">
 <h2 id="project-thoughts">Project thoughts</h2>
-<p>I am interested in exploring data related to the vast disparities between various Asian American and Native Hawaiian/Pacific Islander (AANHPI) ethnic subgroups in the United States. I plan to use publicly available U.S. census data (found at data.census.gov) to explore a multitude of variables, such as educational attainment, median household income, poverty rates, English proficiency, citizenship and immigration status, and so on. Through this project, I hope to disprove the reductionist view of the AANHPI community as a wealthy and well-educated monolith.</p>
+<p>I am interested in exploring data related to the vast disparities between various Asian American and Native Hawaiian/Pacific Islander (AANHPI) ethnic subgroups in the United States. I plan to use publicly available U.S. census data (found at data.census.gov) to explore the varying levels of educational attainment found across these AANHPI ethnic groups and then measure these observations against the national averages for educational attainment. Through this project, I hope to disprove the reductionist view of the AANHPI community as an exclusively well-educated monolith.</p>
 <h2 id="data-source">Data source</h2>
-<p>How do different Asian American and Native Hawaiian/Pacific Islander (AANHPI) ethnic groups fare in America when their experiences are measured against national averages? In this study, I plan to explore the discrepancy in experiences - using a variety of metrics - across members of different AANHPI ethnic groups and compare this discrepancy with the experience of the average American citizen. I hypothesize that because the label “AANHPI” encompasses such a diverse group of ethnicities, the aggregate AANHPI experience will not be much different when compared with the national average when observing most metrics. However, when observing certain metrics, such as English proficiency, I hypothesize that AANHPI groups will fare decidedly worse than the average American. My sample is comprised of U.S. census data from 2010-2020. My unit of analysis is a specific AANHPI ethnic group (e.g. Chinese, Filipino, Burmese, etc.). The explanatory variable of interest is whether each of these ethnic groups fare better or worse than the national average across a variety of metrics (e.g. educational attainment, median household income, poverty and employment rate, English proficiency, etc.). The variable is coded =1 for better than the national average and =0 for worse than the national average. The variable is measured from publicly available U.S. data (found at data.census.gov). If I observe that across ethnic groups, AANHPI fare about equal to the average American citizen, this would provide support for my hypothesis. If, on the other hand, I observe that across ethnic groups, AANHPI fare either overwhelmingly better or worse than the average American citizen, this would provide evidence against my hypothesis. When I run my regression of the AANHPI experience against the national average, a positive, relatively insignificant coefficient would indicate support for my hypothesis.</p>
+<p>How do different Asian American and Native Hawaiian/Pacific Islander (AANHPI) ethnic groups fare in America when their experiences are measured against national averages? In this study, I plan to explore the discrepancy in experiences — measured through levels of educational attainment — between various AANHPI ethnic groups and compare this discrepancy with the experience of the average American citizen. I hypothesize that there will not be a consensus as to whether or not AANHPI on the whole are more formally educated than the average American citizen, and rather certain AANHPI ethnicities, such as Chinese Americans, will be more formally educated than the average American while other AANHPI ethnicities, such as Hmong Americans, will be less formally educated than the average American citizen. My sample is comprised of U.S. census data from 2010-2020. My unit of analysis is a specific AANHPI ethnic group and for this project, I will only consider Chinese and Hmong Americans as while these two ethnicities are often lumped into one, I hypothesize that these two groups will have perhaps the most dissonant experiences when it comes to educational attainment. The explanatory variable of interest is whether each of these ethnic groups fare better or worse than the national average for educational attainment level. The variable is measured from publicly available U.S. data (found at data.census.gov). If I observe that across ethnic groups, the aggregate of the AANHPI population fare about equally to the average American, this would provide support for my hypothesis, as the groups that fare better would “cancel out” those that fare worse, leading to an overall educational attainment level that is about average. If, on the other hand, I observe that across ethnic groups, the aggregate of the AANHPI population fare either overwhelmingly better or worse than the average American citizen, this would provide evidence against my hypothesis. When I run my regression of the aggregate AANHPI experience against the national average, a positive, relatively insignificant coefficient would indicate support for my hypothesis.</p>
 <h2 id="milestone-3-example-use-of-disagreggated-census-data">Milestone 3: Example use of disagreggated census data</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
-<span><span class='va'>race2020</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/race2020.csv"</span><span class='op'>)</span></span>
+<span><span class='va'>acs2022</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/acs2022.csv"</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>race2020plot</span> <span class='op'>&lt;-</span> <span class='va'>race2020</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Race</span>, y <span class='op'>=</span> <span class='va'>Population</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>           <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_log10</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"2020 Racial Demographics"</span>,</span>
-<span>                                               subtitle <span class='op'>=</span> <span class='st'>"CA Congressional District 12"</span>,</span>
-<span>                                               caption <span class='op'>=</span> <span class='st'>"Source: https://data.census.gov/table/DECENNIALPL2020.P1?q=Congressional+District+12+(118th+Congress),+California&amp;tp=false"</span><span class='op'>)</span></span>
+<span><span class='va'>acs2022select</span> <span class='op'>&lt;-</span> <span class='va'>acs2022</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='st'>"United States!!Asian Indian alone!!Margin of Error"</span>,</span>
+<span>                                   <span class='op'>-</span><span class='st'>"United States!!Bangladeshi alone!!Margin of Error"</span>,</span>
+<span>                                   <span class='op'>-</span><span class='st'>"United States!!Cambodian alone!!Margin of Error"</span>,</span>
+<span>                                   <span class='op'>-</span><span class='st'>"United States!!Chinese alone!!Margin of Error"</span>,</span>
+<span>                                   <span class='op'>-</span><span class='st'>"United States!!Chinese, except Taiwanese alone!!Margin of Error"</span>,</span>
+<span>                                   <span class='op'>-</span><span class='st'>"United States!!Taiwanese alone!!Margin of Error"</span>,</span>
+<span>                                   <span class='op'>-</span><span class='st'>"United States!!Filipino alone!!Margin of Error"</span>,</span>
+<span>                                   <span class='op'>-</span><span class='st'>"United States!!Hmong alone!!Margin of Error"</span>,</span>
+<span>                                   <span class='op'>-</span><span class='st'>"United States!!Indonesian alone!!Margin of Error"</span>,</span>
+<span>                                   <span class='op'>-</span><span class='st'>"United States!!Japanese alone!!Margin of Error"</span>,</span>
+<span>                                   <span class='op'>-</span><span class='st'>"United States!!Korean alone!!Margin of Error"</span>,</span>
+<span>                                   <span class='op'>-</span><span class='st'>"United States!!Laotian alone!!Margin of Error"</span>,</span>
+<span>                                   <span class='op'>-</span><span class='st'>"United States!!Pakistani alone!!Margin of Error"</span>,</span>
+<span>                                   <span class='op'>-</span><span class='st'>"United States!!Thai alone!!Margin of Error"</span>,</span>
+<span>                                   <span class='op'>-</span><span class='st'>"United States!!Vietnamese alone!!Margin of Error"</span>,</span>
+<span>                                   <span class='op'>-</span><span class='st'>"United States!!Asian Indian alone or in any combination!!Estimate"</span><span class='op'>:</span><span class='op'>-</span><span class='st'>"United States!!Nepalese alone or in any combination!!Margin of Error"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span><span class='st'>"Asian_Indian"</span> <span class='op'>=</span> <span class='st'>"United States!!Asian Indian alone!!Estimate"</span>,</span>
+<span>         <span class='st'>"Bangladeshi"</span> <span class='op'>=</span> <span class='st'>"United States!!Bangladeshi alone!!Estimate"</span>,</span>
+<span>         <span class='st'>"Cambodian"</span> <span class='op'>=</span> <span class='st'>"United States!!Cambodian alone!!Estimate"</span>,</span>
+<span>         <span class='st'>"Chinese"</span> <span class='op'>=</span> <span class='st'>"United States!!Chinese alone!!Estimate"</span>,</span>
+<span>         <span class='st'>"Chinese_except_Taiwanese"</span> <span class='op'>=</span> <span class='st'>"United States!!Chinese, except Taiwanese alone!!Estimate"</span>,</span>
+<span>         <span class='st'>"Taiwanese"</span> <span class='op'>=</span> <span class='st'>"United States!!Taiwanese alone!!Estimate"</span>,</span>
+<span>         <span class='st'>"Filipino"</span> <span class='op'>=</span> <span class='st'>"United States!!Filipino alone!!Estimate"</span>,</span>
+<span>         <span class='st'>"Hmong"</span> <span class='op'>=</span> <span class='st'>"United States!!Hmong alone!!Estimate"</span>,</span>
+<span>         <span class='st'>"Indonesian"</span> <span class='op'>=</span> <span class='st'>"United States!!Indonesian alone!!Estimate"</span>,</span>
+<span>         <span class='st'>"Japanese"</span> <span class='op'>=</span> <span class='st'>"United States!!Japanese alone!!Estimate"</span>,</span>
+<span>         <span class='st'>"Korean"</span> <span class='op'>=</span> <span class='st'>"United States!!Korean alone!!Estimate"</span>,</span>
+<span>         <span class='st'>"Laotian"</span> <span class='op'>=</span> <span class='st'>"United States!!Laotian alone!!Estimate"</span>,</span>
+<span>         <span class='st'>"Pakistani"</span> <span class='op'>=</span> <span class='st'>"United States!!Pakistani alone!!Estimate"</span>,</span>
+<span>         <span class='st'>"Thai"</span> <span class='op'>=</span> <span class='st'>"United States!!Thai alone!!Estimate"</span>,</span>
+<span>         <span class='st'>"Vietnamese"</span> <span class='op'>=</span> <span class='st'>"United States!!Vietnamese alone!!Estimate"</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>race2020plot</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>educational_attainment</span> <span class='op'>&lt;-</span> <span class='va'>acs2022select</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>97</span><span class='op'>:</span><span class='fl'>103</span>, <span class='fl'>106</span><span class='op'>)</span>, <span class='op'>]</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span><span class='st'>"educational_attainment"</span> <span class='op'>=</span> <span class='st'>"Label (Grouping)"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>educational_attainment</span></span></code></pre>
 </div>
-<p><img src="index_files/figure-html5/unnamed-chunk-1-1.png" width="1440" /></p>
+<pre><code># A tibble: 8 × 16
+  educational_attainment    Asian_Indian Bangladeshi Cambodian Chinese
+  &lt;chr&gt;                     &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;  
+1     Population 25 years … 3,143,573    167,034     198,053   3,356,…
+2         Less than high s… 6.6%         13.8%       28.2%     14.8%  
+3         High school grad… 7.0%         20.8%       25.4%     13.5%  
+4         Some college or … 8.4%         14.0%       22.3%     12.5%  
+5         Bachelor&#39;s degree 31.9%        25.3%       18.2%     27.4%  
+6         Graduate or prof… 46.2%        26.1%       5.9%      31.8%  
+7         High school grad… 93.4%        86.2%       71.8%     85.2%  
+8         Bachelor&#39;s degre… 78.0%        51.5%       24.1%     59.2%  
+# ℹ 11 more variables: Chinese_except_Taiwanese &lt;chr&gt;,
+#   Taiwanese &lt;chr&gt;, Filipino &lt;chr&gt;, Hmong &lt;chr&gt;, Indonesian &lt;chr&gt;,
+#   Japanese &lt;chr&gt;, Korean &lt;chr&gt;, Laotian &lt;chr&gt;, Pakistani &lt;chr&gt;,
+#   Thai &lt;chr&gt;, Vietnamese &lt;chr&gt;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>educational_attainment</span> <span class='op'>&lt;-</span> <span class='va'>acs2022select</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>98</span><span class='op'>:</span><span class='fl'>103</span>, <span class='fl'>106</span><span class='op'>)</span>, <span class='op'>]</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span><span class='st'>"educational_attainment"</span> <span class='op'>=</span> <span class='st'>"Label (Grouping)"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>educational_attainment</span></span></code></pre>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<pre><code># A tibble: 7 × 16
+  educational_attainment    Asian_Indian Bangladeshi Cambodian Chinese
+  &lt;chr&gt;                     &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;  
+1         Less than high s… 6.6%         13.8%       28.2%     14.8%  
+2         High school grad… 7.0%         20.8%       25.4%     13.5%  
+3         Some college or … 8.4%         14.0%       22.3%     12.5%  
+4         Bachelor&#39;s degree 31.9%        25.3%       18.2%     27.4%  
+5         Graduate or prof… 46.2%        26.1%       5.9%      31.8%  
+6         High school grad… 93.4%        86.2%       71.8%     85.2%  
+7         Bachelor&#39;s degre… 78.0%        51.5%       24.1%     59.2%  
+# ℹ 11 more variables: Chinese_except_Taiwanese &lt;chr&gt;,
+#   Taiwanese &lt;chr&gt;, Filipino &lt;chr&gt;, Hmong &lt;chr&gt;, Indonesian &lt;chr&gt;,
+#   Japanese &lt;chr&gt;, Korean &lt;chr&gt;, Laotian &lt;chr&gt;, Pakistani &lt;chr&gt;,
+#   Thai &lt;chr&gt;, Vietnamese &lt;chr&gt;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>educational_attainment</span><span class='op'>$</span><span class='va'>Asian_Indian</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>207475</span>, <span class='fl'>220050</span>, <span class='fl'>264060</span>, <span class='fl'>1002799</span>, <span class='fl'>1452330</span>, <span class='fl'>2936097</span>, <span class='fl'>2451986</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>educational_attainment</span><span class='op'>$</span><span class='va'>Chinese</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>496717</span>, <span class='fl'>453086</span>, <span class='fl'>419524</span>, <span class='fl'>919598</span>, <span class='fl'>1067271</span>, <span class='fl'>2859481</span>, <span class='fl'>1986869</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>educational_attainment</span><span class='op'>$</span><span class='va'>Hmong</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30487</span>, <span class='fl'>46735</span>, <span class='fl'>55498</span>, <span class='fl'>37424</span>, <span class='fl'>12414</span>, <span class='fl'>152072</span>, <span class='fl'>49838</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>Chinese_plot</span> <span class='op'>&lt;-</span> <span class='va'>educational_attainment</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Chinese</span>,</span>
+<span>             y <span class='op'>=</span> <span class='va'>educational_attainment</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>Chinese_plot</span></span></code></pre>
+</div>
+<img src="index_files/figure-html5/unnamed-chunk-1-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>Hmong_plot</span> <span class='op'>&lt;-</span> <span class='va'>educational_attainment</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Hmong</span>,</span>
+<span>             y <span class='op'>=</span> <span class='va'>educational_attainment</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>Hmong_plot</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-1-2.png" width="624" /></p>
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
