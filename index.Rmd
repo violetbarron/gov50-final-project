@@ -1,7 +1,7 @@
 ---
 title: "Gov 50 Final Project"
 author: "Violet Barron"
-description: "Family Educational Support and Grades"
+description: "Race Against Time: The Effect of Commute Times on Student Grades"
 output:
   distill::distill_article:
     self_contained: false
@@ -9,19 +9,19 @@ output:
 
 ## Introduction
 
-Does having a family which provides educational support affect students' grades? In this study, I plan to examine the extent to which family educational support contributes to student performance.
+Do commute times to and from school affect student performance? In this study, I plan to examine the extent to which the time it takes students to travel between home and school contributes to students' grades.
 
-I hypothesize that students whose families are able to provide educational support will earn higher grades, while students whose families aren't able to provide educational support will earn lower grades.
+I hypothesize that students with shorter commute times will earn higher grades, while students with longer commute times will earn lower grades. I believe this will prove to be the case because more time spent commuting is neccessarily less time spent on (quality) studying (e.g. studying not done while sitting in a vehicle).
 
-This data — and my analysis of it — is important because determining the factors that may lead to discrepancies in students' grades can provide schools with ideas of how to fill in the gaps in students' academic experiences. For example, if my hypothesis is proven correct and students whose families provide them with educational support indeed perform better academically than students whose families do not provide them with educational support, schools can use this data to provide the latter subset of students with additional institutional educational support.
+This data — and my analysis of it — is important because determining the factors that may lead to discrepancies in students' grades can provide schools with ideas of how to make the student experience more equitable and ensure that all students have the best chance of academic success. For example, if my hypothesis is proven correct and students with shorter commute times indeed perform better academically than students with longer commute times, schools could account for this inequity by providing students with longer commute times with, say, additional academic counseling.
 
 ## Data
 
-My data is sourced from a survey that measures student performance (determined by final grades) and the various aspects of student identity (e.g. family sie, parents' career, number of hours spent studying per week, etc.) in two Portuguese secondary schools, Gabriel Pereira and Mousinho da Silveira. I found the dataset on kaggle.com (https://www.kaggle.com/datasets/larsen0966/student-performance-data-set), but it was originally retrieved from https://archive.ics.uci.edu/ml/datasets/Student+Performance, and its original source is Paulo Cortez, University of Minho, GuimarÃ£es, Portugal (http://www3.dsi.uminho.pt/pcortez).
+My data is sourced from a survey that measures student performance (determined by final grades) and the various aspects of student identity (e.g. family size, parents' careers, number of hours spent studying per week, etc.) in two Portuguese secondary schools, the Gabriel Pereira School and the Mousinho da Silveira School. I found the dataset on kaggle.com (https://www.kaggle.com/datasets/larsen0966/student-performance-data-set), but it was originally retrieved from https://archive.ics.uci.edu/ml/datasets/Student+Performance, and its original source is Paulo Cortez, University of Minho, GuimarÃ£es, Portugal (http://www3.dsi.uminho.pt/pcortez).
 
-This research design is cross-sectional, as it was not generated from a randomized experiment, nor does it measure any sort of change over time or differences-in-differences. The explanatory, or independent, variable is whether students receive educational support from their families or not. The variable is coded =1 for family educational support and =0 for no family educational support. The outcome, or dependent, variable is a student's final grade. This variable is measured on a scale of 0-20, with 0 being the lowest possible final grade and 20 being the highest possible final grade a student could receive. As I mentioned above, the independent and dependent variables were both measured via a survey conducted in 2008 which measures student performance and various aspects of student identity in two Portuguese secondary schools.
+This research design is cross-sectional, as it was not generated from a randomized experiment, nor does it measure any sort of change over time or differences-in-differences. The explanatory, or independent, variable is the time it takes students to travel between home and school. The variable is coded =1 for a commute time of less than 15 minutes, =2 for a commute time between 15 and 30 minutes, =3 for a commute time between 30 minutes and 60 minutes, and =4 for a commute time of greater than 60 minutes. The outcome, or dependent, variable are students' final grades. This variable is measured on a scale of 0-20, with 0 being the lowest possible final grade and 20 being the highest possible final grade a student could receive. As I mentioned above, the independent and dependent variables were both measured via a survey conducted in 2008 which measures student performance and various aspects of student identity in two Portuguese secondary schools.
 
-If I observe that students who receive educational support from their families earn, on average, higher final grades, this would provide support for my hypothesis. If, on the other hand, I observe that students who receive educational support from their families earn, on average, lower final grades, this would provide evidence against my hypothesis. When I run my regression of students' average final grades on the family educational support indicator variable, a positive, relatively significant coefficient would indicate support for my hypothesis.
+If I observe that students with shorter commute times earn, on average, higher final grades, this would provide support for my hypothesis. If, on the other hand, I observe that students with shorter commute times earn, on average, lower final grades, this would provide evidence against my hypothesis. When I run my regression of students' average final grades on the commute time variable, a negative, relatively significant coefficient would indicate support for my hypothesis, as the negative coefficient would indicate an inversely proportional relationship between commute time and student grades, which I hypothesized.
 
 ```{r echo = FALSE}
 library(tidyverse)
@@ -42,7 +42,7 @@ print(finalgradesplot)
 
 ## Results
 
-Average Final Grade by Commute Time
+Average Final Grade by Commute Time:
 
 ```{r echo = FALSE}
 tibble <- studentperformance |>
@@ -58,17 +58,31 @@ resultsplot <- studentperformance |>
   group_by(traveltime) |>
   ggplot(aes(x = traveltime,
              y = G3)) +
-  labs(x = "Travel Time",
-       y = "Final Grade Earned",
-       title = "Final Grade vs. Commute Time",
+  labs(x = "Commute Time",
+       y = "Final Grade",
+       title = "Commute Time vs. Final Grades of Secondary School Students",
        subtitle = "At Gabriel Pereira and Mousinho da Silveira Schools (2008)",
-       caption = "Source: https://www.kaggle.com/datasets/larsen0966/student-performance-data-set") +
+       caption = "Key: 1 = < 15 min, 2 = 15-30 min, 3 = 30-60 min, 4 = > 60 min,
+       Source: https://www.kaggle.com/datasets/larsen0966/student-performance-data-set") +
   geom_count(color = "steelblue1", alpha = 0.75)
 
 print(resultsplot)
 ```
+Main Regression of Interest:
 
-```{r echo = FALSE}
-
+```{r}
+fit <- lm(G3 ~ traveltime, data = studentperformance)
+fit
 ```
 
+## Results
+
+My calculations confirmed my hypothesis that students with shorter commute times will earn higher grades, while students with longer commute times will earn lower grades. Students withs a commute time of less than 15 minutes averaged a final grade of 12.25137/20, students with a commute time between 15 and 30 minutes averaged 11.57746/20, students with a commute time between 30 and 60 minutes average 11.16667/20, and students with a commute time of greater than 60 min averaged 10.875/20.
+
+My data was unfortunately constrained by the fact that the commute times had already been partially aggregated in the data set. Rather than recording the specific commute time (in minutes) for each student, the survey lumped these commute times into 4 groups: less than 15 minutes, =2 for a commute time between 15 and 30 minutes, =3 for a commute time between 30 minutes and 60 minutes, and =4 for a commute time of greater than 60 minutes. More precise commute times would have resulted in more accurate final calculations.
+
+The main coefficient of interest in my regression was that for commute time ("traveltime"). This coefficient was -0.5488, which, as I hypothesized, is a negative and relatively significant value. The fact that the coefficient is negative indicates that the independent variable, commute time, has an inversely proportional relationship with the dependent variable, student grades. In other words, as commute time increases, student grades, on average, decrease. This coefficient is statistically significant (i.e. the null hypothesis can be rejected) because it is not 0.
+
+However, I cannot confidently assert a causal link between commute time and student grades due to the third variable problem. There are a number of confounding factors — family size, parents' careers, number of hours spent studying per week, internet access, family relationship status, family/school educational support, to name a few — which could just as well be contributing to the observed decrease in student grades with longer commute times.
+
+If I had more time, I would want to improve my analysis by analyzing a number of these factors and performing regressions on them to see which of these factors truly has the greatest impact on student grades.
