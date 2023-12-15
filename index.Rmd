@@ -1,117 +1,74 @@
 ---
 title: "Gov 50 Final Project"
 author: "Violet Barron"
-description: "My final project"
+description: "Family Educational Support and Grades"
 output:
   distill::distill_article:
     self_contained: false
 ---
 
+## Introduction
 
+Does having a family which provides educational support affect students' grades? In this study, I plan to examine the extent to which family educational support contributes to student performance.
 
-## Project thoughts
+I hypothesize that students whose families are able to provide educational support will earn higher grades, while students whose families aren't able to provide educational support will earn lower grades.
 
-I am interested in exploring data related to the vast disparities between various Asian American and Native Hawaiian/Pacific Islander (AANHPI) ethnic subgroups in the United States. I plan to use publicly available U.S. census data (found at data.census.gov) to explore the varying levels of educational attainment found across these AANHPI ethnic groups and then measure these observations against the national averages for educational attainment. Through this project, I hope to disprove the reductionist view of the AANHPI community as an exclusively  well-educated monolith.
+This data — and my analysis of it — is important because determining the factors that may lead to discrepancies in students' grades can provide schools with ideas of how to fill in the gaps in students' academic experiences. For example, if my hypothesis is proven correct and students whose families provide them with educational support indeed perform better academically than students whose families do not provide them with educational support, schools can use this data to provide the latter subset of students with additional institutional educational support.
 
-## Data source
+## Data
 
-How do different Asian American and Native Hawaiian/Pacific Islander (AANHPI) ethnic groups fare in America when their experiences are measured against national averages? In this study, I plan to explore the discrepancy in experiences — measured through levels of educational attainment — between various AANHPI ethnic groups and compare this discrepancy with the experience of the average American citizen. I hypothesize that there will not be a consensus as to whether or not AANHPI on the whole are more formally educated than the average American citizen, and rather certain AANHPI ethnicities, such as Chinese Americans, will be more formally educated than the average American while other AANHPI ethnicities, such as Hmong Americans, will be less formally educated than the average American citizen. My sample is comprised of U.S. census data from 2010-2020. My unit of analysis is a specific AANHPI ethnic group and for this project, I will only consider Chinese and Hmong Americans as while these two ethnicities are often lumped into one, I hypothesize that these two groups will have perhaps the most dissonant experiences when it comes to educational attainment. The explanatory variable of interest is whether each of these ethnic groups fare better or worse than the national average for educational attainment level. The variable is measured from publicly available U.S. data (found at data.census.gov). If I observe that across ethnic groups, the aggregate of the AANHPI population fare about equally to the average American, this would provide support for my hypothesis, as the groups that fare better would "cancel out" those that fare worse, leading to an overall educational attainment level that is about average. If, on the other hand, I observe that across ethnic groups, the aggregate of the AANHPI population fare either overwhelmingly better or worse than the average American citizen, this would provide evidence against my hypothesis. When I run my regression of the aggregate AANHPI experience against the national average, a positive, relatively insignificant coefficient would indicate support for my hypothesis.
+My data is sourced from a survey that measures student performance (determined by final grades) and the various aspects of student identity (e.g. family sie, parents' career, number of hours spent studying per week, etc.) in two Portuguese secondary schools, Gabriel Pereira and Mousinho da Silveira. I found the dataset on kaggle.com (https://www.kaggle.com/datasets/larsen0966/student-performance-data-set), but it was originally retrieved from https://archive.ics.uci.edu/ml/datasets/Student+Performance, and its original source is Paulo Cortez, University of Minho, GuimarÃ£es, Portugal (http://www3.dsi.uminho.pt/pcortez).
 
-## Milestone 3: Example use of disagreggated census data
+This research design is cross-sectional, as it was not generated from a randomized experiment, nor does it measure any sort of change over time or differences-in-differences. The explanatory, or independent, variable is whether students receive educational support from their families or not. The variable is coded =1 for family educational support and =0 for no family educational support. The outcome, or dependent, variable is a student's final grade. This variable is measured on a scale of 0-20, with 0 being the lowest possible final grade and 20 being the highest possible final grade a student could receive. As I mentioned above, the independent and dependent variables were both measured via a survey conducted in 2008 which measures student performance and various aspects of student identity in two Portuguese secondary schools.
 
-```{r include = FALSE}
+If I observe that students who receive educational support from their families earn, on average, higher final grades, this would provide support for my hypothesis. If, on the other hand, I observe that students who receive educational support from their families earn, on average, lower final grades, this would provide evidence against my hypothesis. When I run my regression of students' average final grades on the family educational support indicator variable, a positive, relatively significant coefficient would indicate support for my hypothesis.
+
+```{r echo = FALSE}
 library(tidyverse)
-acs2022 <- read_csv("data/acs2022.csv")
+library(RColorBrewer)
+studentperformance <- read_csv("data/studentperformance.csv")
 
-acs2022select <- acs2022 |> select(-"United States!!Asian Indian alone!!Margin of Error",
-                                   -"United States!!Bangladeshi alone!!Margin of Error",
-                                   -"United States!!Cambodian alone!!Margin of Error",
-                                   -"United States!!Chinese alone!!Margin of Error",
-                                   -"United States!!Chinese, except Taiwanese alone!!Margin of Error",
-                                   -"United States!!Taiwanese alone!!Margin of Error",
-                                   -"United States!!Filipino alone!!Margin of Error",
-                                   -"United States!!Hmong alone!!Margin of Error",
-                                   -"United States!!Indonesian alone!!Margin of Error",
-                                   -"United States!!Japanese alone!!Margin of Error",
-                                   -"United States!!Korean alone!!Margin of Error",
-                                   -"United States!!Laotian alone!!Margin of Error",
-                                   -"United States!!Pakistani alone!!Margin of Error",
-                                   -"United States!!Thai alone!!Margin of Error",
-                                   -"United States!!Vietnamese alone!!Margin of Error",
-                                   -"United States!!Asian Indian alone or in any combination!!Estimate":-"United States!!Nepalese alone or in any combination!!Margin of Error") |>
-  rename("Asian_Indian" = "United States!!Asian Indian alone!!Estimate",
-         "Bangladeshi" = "United States!!Bangladeshi alone!!Estimate",
-         "Cambodian" = "United States!!Cambodian alone!!Estimate",
-         "Chinese" = "United States!!Chinese alone!!Estimate",
-         "Chinese_except_Taiwanese" = "United States!!Chinese, except Taiwanese alone!!Estimate",
-         "Taiwanese" = "United States!!Taiwanese alone!!Estimate",
-         "Filipino" = "United States!!Filipino alone!!Estimate",
-         "Hmong" = "United States!!Hmong alone!!Estimate",
-         "Indonesian" = "United States!!Indonesian alone!!Estimate",
-         "Japanese" = "United States!!Japanese alone!!Estimate",
-         "Korean" = "United States!!Korean alone!!Estimate",
-         "Laotian" = "United States!!Laotian alone!!Estimate",
-         "Pakistani" = "United States!!Pakistani alone!!Estimate",
-         "Thai" = "United States!!Thai alone!!Estimate",
-         "Vietnamese" = "United States!!Vietnamese alone!!Estimate")
+finalgradesplot <- studentperformance |>
+  ggplot(aes(x = G3)) +
+  labs(x = "Final Grade (Dependent Variable)",
+       y = "# of Students Earning Grade",
+       title = "Final Grade Distribution Among Secondary School Students",
+       subtitle = "At Gabriel Pereira and Mousinho da Silveira Schools (2008)",
+       caption = "Source: https://www.kaggle.com/datasets/larsen0966/student-performance-data-set") +
+  geom_bar(fill = "mediumpurple1")
 
-educational_attainment <- acs2022select[c(97:103, 106), ] |> rename("educational_attainment" = "Label (Grouping)")
-
-educational_attainment
-
-educational_attainment <- acs2022select[c(98:103, 106), ] |> rename("educational_attainment" = "Label (Grouping)")
-
-educational_attainment
-
-educational_attainment$Asian_Indian <- c(207475, 220050, 264060, 1002799, 1452330, 2936097, 2451986)
-
-educational_attainment$Chinese <- c(496717, 453086, 419524, 919598, 1067271, 2859481, 1986869)
-
-educational_attainment$Hmong <- c(30487, 46735, 55498, 37424, 12414, 152072, 49838)
+print(finalgradesplot)
 ```
 
-```{r}
-Chinese_plot <- educational_attainment |>
-  ggplot(aes(x = Chinese,
-             y = educational_attainment)) +
-  labs(x = "Chinese population",
-       y = "Level of educational attainment",
-       title = "Educational Attainment of Chinese Americans") +
-  geom_col()
+## Results
 
-print(Chinese_plot)
+Average Final Grade by Commute Time
 
-Hmong_plot <- educational_attainment |>
-  ggplot(aes(x = Hmong,
-             y = educational_attainment)) +
-  labs(x = "Hmong population",
-       y = "Level of educational attainment",
-       title = "Educational Attainment of Hmong Americans") +
-  geom_col()
+```{r echo = FALSE}
+tibble <- studentperformance |>
+  group_by(traveltime) |>
+  summarize(mean_finalgrades = mean(G3)) |>
+  pivot_wider(names_from = traveltime,
+              values_from = mean_finalgrades)
 
-print(Hmong_plot)
+knitr::kable(tibble,
+  col.names = c("< 15 min", "15-30 min", "30 min-60 min", "> 60 min"))
+
+resultsplot <- studentperformance |>
+  group_by(traveltime) |>
+  ggplot(aes(x = traveltime,
+             y = G3)) +
+  labs(x = "Travel Time",
+       y = "Final Grade Earned",
+       title = "Final Grade vs. Commute Time",
+       subtitle = "At Gabriel Pereira and Mousinho da Silveira Schools (2008)",
+       caption = "Source: https://www.kaggle.com/datasets/larsen0966/student-performance-data-set") +
+  geom_count(color = "steelblue1", alpha = 0.75)
+
+print(resultsplot)
 ```
 
+```{r echo = FALSE}
 
-```{r}
-educational_attainment_percentages <- acs2022select[c(97:103, 106), ] |> rename("educational_attainment" = "Label (Grouping)")
-educational_attainment_percentages |> knitr::kable()
 ```
 
-From these first two visualizations, it is clear that the first part of my hypothesis — that Chinese Americans and Hmong Americans will have quite disparate levels of educational attainment — is likely true. The data point which exemplifies this best is the percentage of these respective populations which hold a bachelor's degree or higher. Whereas 59.2% of the Chinese American population holds a bachelor's degree or higher, about half of that percentage, or 27.3%, of the Hmong American population holds a bachelor's degree or higher. This large disparity indicates that the average/aggregate of the two will likely fall somewhere near the percentage of the general American population that holds a bachelor's degree or higher (35.7%, according to the 2020 U.S. Census).
-
-## Regression
-
-```{r}
-regression_data = data.frame(asian = c(0.592, 0.273),
-                             general = 0.357)
-model = lm(asian ~ general, regression_data)
-
-model
-```
-
-## Conclusion
-
-In this regression, the dependent variable is the "aggregate" percentage of the AANHPI population that holds a bachelor's degree or higher (as determined by taking the average of the respective percentages of the Chinese American and Hmong American population that hold a bachelor's degree or higher). The independent variable is the percentage of the total U.S. population that holds a bachelor's degree or higher. The resulting coefficient is 0.4325, which is statistically significant but cannot be interpreted causally as this was a cross-sectional experiment designed to visualize the disparities between various AANHPI ethnicities' levels of educational attainment and then compare this against that of the total U.S. population, not to attribute any sort of causation between these various percentages.
-
-The coefficient of 0.4325 is a positive, relatively insignificant coefficient,  which I hypothesized the results would return. This coefficient proves that the aggregate AANHPI level of educational attainment is somewhere in between that of the average citizen, effectively proving that AANHPI population is not a monolith (i.e. fares much better or much worse than the general U.S. population), at least when it comes to educational attainment.
